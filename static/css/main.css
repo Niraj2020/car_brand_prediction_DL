@@ -2,9 +2,7 @@
 body {
     margin: 0;
     overflow: hidden;
-    background: linear-gradient(to right, hsl(147, 68%, 49%), #b51ad4); /* Replace with your preferred gradient or color */
-
-    
+    background: linear-gradient(to right, hsl(147, 68%, 49%), #b51ad4); /* Replace with your preferred gradient or color */   
 }
 
 .interactive-background {
