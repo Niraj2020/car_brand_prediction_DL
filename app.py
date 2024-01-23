@@ -5,9 +5,20 @@ import os
 import glob
 import re
 import numpy as np
+import tensorflow as tf
+import tensorflow as tf
+from PIL import Image
 
+
+from tensorflow.compat.v1 import ConfigProto
+from tensorflow.compat.v1 import InteractiveSession
+
+config = ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.2
+config.gpu_options.allow_growth = True
+session = InteractiveSession(config=config)
 # Keras
-from tensorflow.keras.applications.imagenet_utils import preprocess_input, decode_predictions
+from tensorflow.keras.applications.resnet50 import preprocess_input
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
@@ -20,7 +31,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 # Model saved with Keras model.save()
-MODEL_PATH ='model_resnet50.h5'
+MODEL_PATH ='model_resnt50.h5'
 
 # Load your trained model
 model = load_model(MODEL_PATH)
@@ -29,6 +40,7 @@ model = load_model(MODEL_PATH)
 
 
 def model_predict(img_path, model):
+    print(img_path)
     img = image.load_img(img_path, target_size=(224, 224))
 
     # Preprocessing the image
@@ -39,16 +51,27 @@ def model_predict(img_path, model):
     x = np.expand_dims(x, axis=0)
    
 
-   
+    # Be careful how your trained model deals with the input
+    # otherwise, it won't make correct prediction!
+   # x = preprocess_input(x)
 
     preds = model.predict(x)
     preds=np.argmax(preds, axis=1)
     if preds==0:
-        preds="The Car IS Audi"
+        preds="The car is Audi"
     elif preds==1:
-        preds="The Car is Lamborghini"
+        preds="The car is Hyundai Creta"
+    elif preds==2:
+        preds="The car is Mahindra Scorpio"
+    elif preds==3:
+        preds="The car is Rolls Royce"
+    elif preds==4:
+        preds="The car is Swift"
+    elif preds==5:
+        preds="The car is Tata Safari"
     else:
-        preds="The Car Is Mercedes"
+        preds="The car is Toyota Innova"
+        
     
     
     return preds
@@ -80,4 +103,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001,debug=True)

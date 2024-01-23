@@ -1,11 +1,11 @@
 {% extends "base.html" %} {% block content %}
-
-<h2>Image Classifier</h2>
+<div class="header" style="display: flex; margin-left:45%;color:brown;">
+<h2>Image Classifier</h2></div>
 
 <div>
-    <form id="upload-file" method="post" enctype="multipart/form-data">
+    <form id="upload-file" method="post" enctype="multipart/form-data" style="display: flex; margin-left:43%;">
         <label for="imageUpload" class="upload-label">
-            Choose...
+           <h3> Upload your car image.....</h3>
         </label>
         <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
     </form>
@@ -16,15 +16,16 @@
             </div>
         </div>
         <div>
-            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
+            <button type="button" class="btn btn-primary btn-lg " id="btn-predict" style="display: flex;margin-left:43%; color:blueviolet;border-radius:8px;">
+                <h2>Predict your Image</h2></button>
         </div>
     </div>
 
-    <div class="loader" style="display:none;"></div>
+    <div class="loader" style="display:none; margin-left:43%; color:blueviolet;border-radius:8px;"></div>
 
-    <h3 id="result">
+    <h2 id="result" style="margin-left:43%; display:none;">
         <span> </span>
-    </h3>
+    </h2>
 
 </div>
 
